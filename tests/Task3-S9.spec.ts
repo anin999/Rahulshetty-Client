@@ -27,12 +27,16 @@ test('iFrame Example - Practice Page', async ({ page }) => {
 
   console.log(
     'Verify that - Opening Practice Page - https://rahulshettyacademy.com/AutomationPractice/'
+    
   );
 
-  await page.goto(
-    'https://rahulshettyacademy.com/AutomationPractice/'
-  );
-
+await page.goto(
+  'https://rahulshettyacademy.com/AutomationPractice/',
+  {
+    waitUntil: 'domcontentloaded',
+    timeout: 120000,
+  }
+);
   console.log('Verify that - Practice Page loaded successfully');
 
   // --------------------------------------------------
