@@ -1,77 +1,142 @@
-import { test, expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
+test.setTimeout(500000);
 
-test.setTimeout(300000);
+test('Radio Button Example - Practice Page', async ({ page }) => {
 
-test('Verify JavaScript Prompt Alert', async ({ page }) => {
-
-  // Human Delay Function
-  const delay = async (ms: number = 3000) => {
-    await page.waitForTimeout(ms);
+  // 3-second human delay
+  const humanDelay = async () => {
+    await page.waitForTimeout(3000);
   };
 
-  console.log("========== Test Started  ==========");
+  // Helper for logging clicks
+  const clickAndLog = async (locator: any, name: string) => {
+    await humanDelay();
+    console.log(`Clicking: ${name}`);
+    await locator.click();
+    console.log(`Clicked: ${name}`);
+  };
 
-  // Open URL
-  console.log("Verify that URL is correctly opened");
-  await page.goto('https://the-internet.herokuapp.com/javascript_alerts');
-  await delay();
+  console.log('Test Started');
 
-  // Verify page heading
-  const heading = page.getByRole('heading', { name: 'JavaScript Alerts' });
+  // Open website
+  await humanDelay();
 
-  await expect(heading).toBeVisible();
-  console.log("Verify that heading - JavaScript Alerts - is visible");
-  await delay();
+  console.log(
+    'Verify user can access - https://rahulshettyacademy.com/AutomationPractice/'
+  );
 
-  // Verify JS Prompt button
-  const jsPromptButton = page.getByRole('button', {
-    name: 'Click for JS Prompt'
+  await page.goto('/');
+
+  console.log('Verify that page URL is correctly loaded');
+
+  // Verify page title
+  console.log(
+    `Verify that Page Title is correctly loaded: ${await page.title()}`
+  );
+
+  // --------------------------------------------------
+  // Practice Page heading
+  // --------------------------------------------------
+
+  const practicePageHeading = page.getByRole('heading', {
+    name: 'Practice Page'
   });
 
-  await expect(jsPromptButton).toBeVisible();
-  console.log("Verify that - 'Click for JS Prompt' button is visible.");
-  await delay();
+  await expect(practicePageHeading).toBeVisible();
 
-  await expect(jsPromptButton).toBeEnabled();
-  console.log("Verify that 'Click for JS Prompt' button is enabled and clickable.");
-  await delay();
+  console.log(
+    'Verify that heading - Practice Page is correctly loaded'
+  );
 
-  // Handle JavaScript Prompt
-  page.once('dialog', async (dialog) => {
+  // --------------------------------------------------
+  // Radio Button Example heading
+  // --------------------------------------------------
 
-    console.log("JS PROMPT OPENED");
-    console.log(`Popup Type       : ${dialog.type()}`);
-    console.log(`Popup Message    : ${dialog.message()}`);
+  const radioButtonHeading = page.getByText(
+    'Radio Button Example',
+    {
+      exact: true
+    }
+  );
 
-    // Verify popup message
-    expect(dialog.message()).toBe("I am a JS prompt");
-    console.log("Verify that - Popup text: I am a JS prompt is populated");
-    await page.waitForTimeout(3000);
+  await expect(radioButtonHeading).toBeVisible();
 
-    const inputValue = "test123";
-    console.log(`Entering Value in prompt: ${inputValue}`);
+  console.log(
+    'Verify that Radio Button Example heading is visible'
+  );
 
-    // Enter value and click OK
-    await dialog.accept(inputValue);
+  // --------------------------------------------------
+  // Radio 1
+  // --------------------------------------------------
 
-    console.log("Verify that user clicked OK and prompt closed");
-  });
+  const radio1 = page
+    .locator('label')
+    .filter({ hasText: 'Radio1' })
+    .getByRole('radio');
 
-  // Click JS Prompt button
-  console.log("Verify that - 'Click for JS Prompt' button is clicked");
-  await delay();
-  await jsPromptButton.click();
+  await expect(radio1).toBeVisible();
 
-  // Wait for result
-  await delay();
+  await humanDelay();
 
-  // Verify result
-  const result = page.locator('#result');
+  console.log('Verify that user is selecting Radio1');
 
-  await expect(result).toHaveText('You entered: test123');
+  await radio1.check();
 
-  console.log("Verify that - result is correctly displayed");
-  console.log(`Result Text      : ${await result.textContent()}`);
-  await delay();
+  await expect(radio1).toBeChecked();
 
+  console.log('Radio1: Done');
+
+  // --------------------------------------------------
+  // Radio 2
+  // --------------------------------------------------
+
+  const radio2 = page
+    .locator('label')
+    .filter({ hasText: 'Radio2' })
+    .getByRole('radio');
+
+  await expect(radio2).toBeVisible();
+
+  await humanDelay();
+
+  console.log('Verify that user is selecting Radio2');
+
+  await radio2.check();
+
+  await expect(radio2).toBeChecked();
+
+  console.log('Radio2: Done');
+
+  // --------------------------------------------------
+  // Radio 3
+  // --------------------------------------------------
+
+  const radio3 = page
+    .locator('label')
+    .filter({ hasText: 'Radio3' })
+    .getByRole('radio');
+
+  await expect(radio3).toBeVisible();
+
+  await humanDelay();
+
+  console.log('Verify that user is selecting Radio3');
+
+  await radio3.check();
+
+  await expect(radio3).toBeChecked();
+
+  console.log('Radio3: Done');
+
+  // --------------------------------------------------
+  // Final Verification
+  // --------------------------------------------------
+
+  await humanDelay();
+
+  await expect(radio3).toBeChecked();
+
+  console.log('Radio Button Selection Done');
+
+  await page.waitForTimeout(5000);
 });

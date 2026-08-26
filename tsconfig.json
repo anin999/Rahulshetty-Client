@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "strict": true,
-    "types": ["@playwright/test", "node"],   // 👈 add "node"
+    "types": ["@playwright/test", "node"],
     "skipLibCheck": true
   },
   "include": [
     "tests/**/*.ts",
     "pages/**/*.ts",
     "utils/**/*.ts",
-    "runner.ts"                              // 👈 include the runner file
+    "runner.ts"
   ]
 }

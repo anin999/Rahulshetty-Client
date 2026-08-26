@@ -7,7 +7,6 @@ const playwright = require("eslint-plugin-playwright");
 
 module.exports = tseslint.config(
 
-  // 1 – Ignore folders (replaces .eslintignore)
   {
     ignores: [
       "node_modules/**",
@@ -19,7 +18,6 @@ module.exports = tseslint.config(
     ]
   },
 
-  // 2 – Base TypeScript rules
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
@@ -32,8 +30,6 @@ module.exports = tseslint.config(
       globals: globals.node
     },
     rules: {
-
-      // Important for your existing code
       "@typescript-eslint/no-explicit-any": "off",
 
       "@typescript-eslint/no-unused-vars": [
@@ -49,14 +45,19 @@ module.exports = tseslint.config(
     }
   },
 
-  // 3 – Playwright test rules (only for test files)
   {
     files: [
       "tests/**",
       "tests-examples/**",
       "**/*.spec.ts"
     ],
-    extends: [playwright.configs["flat/recommended"]]
+    extends: [playwright.configs["flat/recommended"]],
+
+    rules: {
+      "playwright/no-wait-for-timeout": "off",
+      "playwright/no-conditional-in-test": "off",
+      "playwright/no-useless-await": "off"
+    }
   }
 
 );

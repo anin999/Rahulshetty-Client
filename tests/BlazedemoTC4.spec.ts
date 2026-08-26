@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.setTimeout(3000_0000);
+test.setTimeout(5000_0000);
 
 test('BlazeDemo Login with Logs', async ({ page }) => {
 

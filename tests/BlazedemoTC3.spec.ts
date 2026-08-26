@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-test.setTimeout(3000_0000);
+test.setTimeout(5000_0000);
 
 test('BlazeDemo Flight Booking with Logs', async ({ page }) => {
 

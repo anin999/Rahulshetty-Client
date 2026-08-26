@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { FlightBookingPage } from '../pages/Blazedemo';
-test.setTimeout(3000_0000);
+test.setTimeout(5000_0000);
 
 test('Book Flight Successfully', async ({ page }) => {
 

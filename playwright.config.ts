@@ -8,6 +8,8 @@ console.log('BASE_URL:', process.env.BASE_URL);
 export default defineConfig({
   testDir: './tests',
 
+  timeout: Number(process.env.BROWSER_TIMEOUT),
+
   use: {
     baseURL: process.env.BASE_URL,
 

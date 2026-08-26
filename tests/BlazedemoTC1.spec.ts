@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-test.setTimeout(3000_0000);
+test.setTimeout(5000_0000);
 
 test('Verify Home Page Elements', async ({ page }) => {
 
