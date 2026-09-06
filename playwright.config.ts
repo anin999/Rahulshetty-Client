@@ -10,40 +10,61 @@ export default defineConfig({
 
   timeout: Number(process.env.BROWSER_TIMEOUT),
 
+  // Generate execution reports
+  reporter: [
+    ['html', { open: 'never' }],
+    ['list']
+  ],
+
+  // Retry failed tests when running through Jenkins/CI
+  retries: process.env.CI ? 2 : 0,
+
+  // Store test artifacts
+  outputDir: 'test-results',
+
   use: {
     baseURL: process.env.BASE_URL,
 
     headless: false,
-    viewport: null,
 
-    launchOptions: {
-      args: ['--start-maximized'],
+    // Capture screenshot only when test fails
+    screenshot: 'only-on-failure',
+
+    // Record video only when test fails
+    video: 'retain-on-failure',
+
+    // Capture trace for failed tests
+    trace: 'retain-on-failure',
+  },
+
+projects: [
+  {
+    name: 'Chromium',
+    use: {
+      browserName: 'chromium',
+
+      viewport: null,
+
+      launchOptions: {
+        args: ['--start-maximized'],
+      },
     },
   },
 
-  projects: [
-    {
-      name: 'Chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        browserName: 'chromium',
-      },
+  {
+    name: 'Firefox',
+    use: {
+      ...devices['Desktop Firefox'],
+      browserName: 'firefox',
     },
+  },
 
-    {
-      name: 'Firefox',
-      use: {
-        ...devices['Desktop Firefox'],
-        browserName: 'firefox',
-      },
+  {
+    name: 'WebKit',
+    use: {
+      ...devices['Desktop Safari'],
+      browserName: 'webkit',
     },
-
-    {
-      name: 'WebKit',
-      use: {
-        ...devices['Desktop Safari'],
-        browserName: 'webkit',
-      },
-    },
-  ],
+  },
+],
 });
