@@ -75,7 +75,7 @@ export class AddToCartPage {
 async navigateToLoginPage() {
   console.log('[ACTION] Navigating to Login page');
 
-  await this.page.goto('#/auth/login');
+  await this.page.goto('https://rahulshettyacademy.com/client/#/auth/login');
 
   await WaitUtils.delay(this.page);
 }
